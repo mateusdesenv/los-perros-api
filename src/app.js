@@ -1,24 +1,14 @@
 import express from "express";
 import cors from "cors";
-import { env } from "./config/env.js";
+import { corsOptions } from "./config/cors.js";
 import { publicRouter } from "./routes/public.js";
 import { adminRouter } from "./routes/admin.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 
 export const app = express();
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || env.corsOrigin.length === 0 || env.corsOrigin.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-
-      callback(new Error("Origem não permitida pelo CORS."));
-    }
-  })
-);
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 
