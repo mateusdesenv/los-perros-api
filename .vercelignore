@@ -1,0 +1,12 @@
+node_modules
+.vercel
+.git
+.gitignore
+.env
+.env.local
+*.zip
+*.log
+.DS_Store
+coverage
+uploads
+tmp
